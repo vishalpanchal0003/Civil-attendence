@@ -118,7 +118,7 @@ console.log("full data ",data)
                     <>
                         {/* Selected Month */}
 
-                        <div className="mb-5 rounded-2xl border border-indigo-100 bg-indigo-50 p-4">
+                        <div className="stat-card mb-5 rounded-2xl border border-indigo-100 bg-indigo-50 p-4">
 
                             <p className="text-xs font-medium uppercase tracking-wide text-indigo-500">
                                 Salary For
@@ -187,9 +187,9 @@ console.log("full data ",data)
 
                             {/* Total Salary */}
 
-                            <div className="rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 p-5 shadow-sm transition hover:shadow-md md:p-6">
+                            <div className="stat-card rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 p-5 shadow-sm transition hover:shadow-md md:p-6">
 
-                                <div className="flex items-center justify-between">
+                                <div className=" flex items-center justify-between">
 
                                     <div>
                                         <p className="text-sm font-medium text-green-700">

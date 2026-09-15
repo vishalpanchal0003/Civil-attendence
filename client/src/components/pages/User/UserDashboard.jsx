@@ -123,7 +123,7 @@ const UserDashboard = () => {
 
                             {/* ================= PRESENT DAYS ================= */}
 
-                            <div className="rounded-xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-indigo-100/50 p-4">
+                            <div className="stat-card rounded-xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-indigo-100/50 p-4">
 
                                 <p className="text-xs font-medium text-slate-700 md:text-sm">
                                     Present Days
@@ -142,7 +142,7 @@ const UserDashboard = () => {
 
                             {/* ================= SALARY ================= */}
 
-                            <div className="rounded-xl border border-green-100 bg-gradient-to-br from-green-50 to-green-100/50 p-4">
+                            <div className="stat-card rounded-xl border border-green-100 bg-gradient-to-br from-green-50 to-green-100/50 p-4">
 
                                 <p className="text-xs font-medium text-slate-700 md:text-sm">
                                     This Month Salary

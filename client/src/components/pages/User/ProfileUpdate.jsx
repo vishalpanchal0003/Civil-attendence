@@ -25,16 +25,19 @@ const ProfileInformation = () => {
         dailyWage: "",
     });
 
-    useEffect(() => {
-        if (data?.profile) {
-            setProfileData({
-                name: data.profile.name || "",
-                email: data.profile.email || "",
-                mobile: data.profile.mobile || "",
-                dailyWage: (userDetails.userRole !== "admin" & data.profile.dailyWage || "")
-            });
-        }
-    }, [data]);
+useEffect(() => {
+    if (data?.profile) {
+        setProfileData({
+            name: data.profile.name || "",
+            email: data.profile.email || "",
+            mobile: data.profile.mobile || "",
+            dailyWage:
+                userDetails?.userRole !== "admin"
+                    ? data.profile.dailyWage || ""
+                    : "",
+        });
+    }
+}, [data?.profile, userDetails?.userRole]);
 
     const updateProfileMutation = useMutation({
         mutationFn: ({ id, userData }) =>
@@ -60,7 +63,6 @@ const ProfileInformation = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
         setProfileData((prev) => ({
             ...prev,
             [name]: value,
@@ -239,3 +241,4 @@ const ProfileInformation = () => {
 };
 
 export default ProfileInformation;
+

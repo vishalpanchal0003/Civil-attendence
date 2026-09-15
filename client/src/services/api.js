@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const authUrl = `${import.meta.env.VITE_PORT}/users`
-const attendanceUrl = `${import.meta.env.VITE_PORT}/attendance`
+console.log("API URL:", import.meta.env.REACT_APP_API_URL);
+const authUrl = `${process.env.REACT_APP_API_URL}/users`;
+const attendanceUrl = `${process.env.REACT_APP_API_URL}/attendance`;
 
 const authApi = axios.create({
     baseURL: authUrl

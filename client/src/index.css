@@ -17,6 +17,235 @@ code {
 } */
 /* Hide scrollbar - entire project */
 
+/* ================= DARK MODE ================= */
+
+/* =========================================
+   GLOBAL DARK MODE
+========================================= */
+
+body.dark {
+    background-color: #0f172a;
+    color: #e2e8f0;
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
+}
+
+/* =========================================
+   MAIN BACKGROUNDS
+========================================= */
+
+body.dark .bg-white {
+    background-color: #1e293b !important;
+}
+
+body.dark .bg-slate-50,
+body.dark .bg-gray-50 {
+    background-color: #0f172a !important;
+}
+
+body.dark .bg-slate-100,
+body.dark .bg-gray-100 {
+    background-color: #1e293b !important;
+}
+
+body.dark .bg-slate-200,
+body.dark .bg-gray-200 {
+    background-color: #334155 !important;
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+body.dark .text-black,
+body.dark .text-slate-900,
+body.dark .text-slate-800,
+body.dark .text-slate-700,
+body.dark .text-gray-900,
+body.dark .text-gray-800,
+body.dark .text-gray-700 {
+    color: #f1f5f9 !important;
+}
+
+body.dark .text-slate-600,
+body.dark .text-gray-600 {
+    color: #cbd5e1 !important;
+}
+
+body.dark .text-slate-500,
+body.dark .text-gray-500 {
+    color: #94a3b8 !important;
+}
+
+body.dark .text-slate-400,
+body.dark .text-gray-400 {
+    color: #94a3b8 !important;
+}
+
+/* =========================================
+   WHITE TEXT
+   Keep white text white
+========================================= */
+
+body.dark .text-white {
+    color: #ffffff !important;
+}
+
+/* =========================================
+   BORDERS
+========================================= */
+
+body.dark .border,
+body.dark .border-slate-200,
+body.dark .border-slate-300,
+body.dark .border-gray-200,
+body.dark .border-gray-300 {
+    border-color: #334155 !important;
+}
+
+/* =========================================
+   INPUT / SELECT / TEXTAREA
+========================================= */
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+body.dark input:focus,
+body.dark select:focus,
+body.dark textarea:focus {
+    border-color: #64748b !important;
+    outline: none;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+body.dark table {
+    background-color: #1e293b;
+    color: #e2e8f0;
+}
+
+body.dark thead {
+    background-color: #334155 !important;
+}
+
+body.dark th {
+    background-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+body.dark td {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+body.dark tr:hover td {
+    background-color: #263449 !important;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+body.dark .shadow,
+body.dark .shadow-sm,
+body.dark .shadow-md,
+body.dark .shadow-lg,
+body.dark .shadow-xl {
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* =========================================
+   DIVIDERS
+========================================= */
+
+body.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
+body.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+    border-color: #334155 !important;
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
+body.dark .fixed .bg-white {
+    background-color: #1e293b !important;
+}
+
+/* =========================================
+   LINKS
+========================================= */
+
+body.dark a {
+    color: inherit;
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+body.dark ::-webkit-scrollbar {
+    width: 6px;
+}
+/* ================================
+   DASHBOARD STAT CARDS - DARK MODE
+================================ */
+
+body.dark .stat-card {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading */
+body.dark .stat-card h1,
+body.dark .stat-card h2,
+body.dark .stat-card h3,
+body.dark .stat-card h4 {
+    color: #f8fafc !important;
+}
+
+body,
+body * {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* Normal text */
+body.dark .stat-card p,
+body.dark .stat-card span {
+    color: #cbd5e1 !important;
+}
+body.dark ::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 10px;
+}
+
+body.dark ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
 html,
 body {
     margin: 0;

@@ -1,10 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { logOut } from "../../../services/auth.api";
+import { MyTheme } from "../../../context/ThemeContext";
+import { MoonIcon, Sun } from "lucide-react";
 
 const UserLayout = () => {
+    const { dark, setDark } = useContext(MyTheme);
     const navigate = useNavigate();
 
     // ================= LOGOUT =================
@@ -68,14 +71,18 @@ const UserLayout = () => {
             {/* ================================================= */}
 
             <nav className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white shadow-sm">
-
+   <button
+           className="absolute mt-5 ml-2"
+           onClick={() => setDark(!dark)}>
+            {dark ? <Sun/> : <MoonIcon/>}
+        </button>
                 <div className="flex min-h-[64px] w-full items-center justify-between px-4 md:px-8">
 
                     {/* Logo */}
 
                     <NavLink
                         to="/dashboard"
-                        className="shrink-0 text-xl font-bold text-slate-900"
+                        className="shrink-0 ml-7 text-xl font-bold text-slate-900"
                     >
                         Worker
                         <span className="text-indigo-600">
@@ -168,7 +175,7 @@ const UserLayout = () => {
             {/* MOBILE BOTTOM NAVBAR */}
             {/* ================================================= */}
 
-            <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/95 shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur md:hidden">
+            <nav className="stat-card fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/95 shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur md:hidden">
 
                 <div className="flex h-[68px] items-center justify-around px-1">
 

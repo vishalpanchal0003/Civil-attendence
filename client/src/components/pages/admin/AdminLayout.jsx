@@ -1,10 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { logOut } from "../../../services/auth.api";
+import { MyTheme } from "../../../context/ThemeContext";
+import { CloudMoonIcon, Moon, MoonIcon, Sun, SunMoonIcon } from "lucide-react";
 
 const AdminLayout = () => {
+        const { dark, setDark } = useContext(MyTheme);
+
     const navigate = useNavigate();
 
     const logoutMutation = useMutation({
@@ -33,12 +37,17 @@ const AdminLayout = () => {
 
     return (
         <div className=" w-full min-h-screen bg-slate-50">
+           <button
+           className="absolute mt-5 ml-2"
+           onClick={() => setDark(!dark)}>
+            {dark ? <Sun/> : <MoonIcon/>}
+        </button>
 
             {/* Header */}
             <header className=" bg-white border-b border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 md:px-6">
 
-                    <div className=" h-16 flex items-center justify-between">
+                    <div className=" h-16 flex ml-10 items-center justify-between">
 
                         {/* Logo */}
                         <div>
@@ -53,7 +62,6 @@ const AdminLayout = () => {
 
                         {/* Desktop Navigation */}
                         <nav className="hidden md:flex items-center gap-2">
-
                             <NavLink
                                 to="/adminDashboard"
                                 className={({ isActive }) =>
@@ -103,6 +111,7 @@ const AdminLayout = () => {
                                     }`
                                 }
                             >
+                                
                                 Salary
                             </NavLink>
 
