@@ -12,6 +12,7 @@ app.use(
     origin: [
       process.env.CLIENT_URL,
       "http://localhost:3000",
+      'https://civilworkmanagment-mu.vercel.app/'
     ]
   })
 ); app.use(express.json());

@@ -1,6 +1,4 @@
 import axios from 'axios';
-
-console.log("API URL:", import.meta.env.REACT_APP_API_URL);
 const authUrl = `${process.env.REACT_APP_API_URL}/users`;
 const attendanceUrl = `${process.env.REACT_APP_API_URL}/attendance`;
 
