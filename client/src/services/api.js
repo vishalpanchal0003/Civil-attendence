@@ -1,6 +1,7 @@
 import axios from 'axios';
-// const authUrl = 'http://localhost:4000/api/users/'
-const authUrl = 'http://10.170.76.92:4000/api/users/'
+
+const authUrl = `${import.meta.env.VITE_PORT}/users`
+const attendanceUrl = `${import.meta.env.VITE_PORT}/attendance`
 
 const authApi = axios.create({
     baseURL: authUrl
@@ -17,7 +18,6 @@ authApi.interceptors.request.use((config) => {
 });
 
 
-const attendanceUrl = "http://localhost:4000/api/attendance/";
 
 const attendanceApi = axios.create({
     baseURL: attendanceUrl,
@@ -33,4 +33,4 @@ attendanceApi.interceptors.request.use((config) => {
     return config;
 });
 
-export  {attendanceApi,authApi};
+export { attendanceApi, authApi };
