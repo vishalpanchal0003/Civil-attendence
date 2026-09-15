@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useState } from "react";
 import { getAllSalary } from "../../../services/attendance.api";
 
 const AllWorkerSalary = () => {
@@ -11,9 +11,6 @@ const AllWorkerSalary = () => {
         queryKey: ['allworkersalary', salaryMonth],
         queryFn: () => getAllSalary(salaryMonth),
     })
-    console.log("all worker salary", data?.salary?.totalSalaryOfAllWorker)
-
-
     return (
         <div className="min-h-screen p-4 md:p-6 lg:p-8">
 

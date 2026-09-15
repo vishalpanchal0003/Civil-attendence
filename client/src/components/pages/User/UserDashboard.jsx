@@ -12,7 +12,6 @@ const UserDashboard = () => {
     const {
         data: attendanceData,
         isPending: attendancePending,
-        isError
     } = useQuery({
         queryKey: ["myattendance"],
         queryFn: getMyAttendance,
@@ -32,8 +31,7 @@ const UserDashboard = () => {
 
     const {
         data: salaryData,
-        isPending: salaryPending,
-        isError: salaryError,
+        isPending: salaryPending
     } = useQuery({
         queryKey: ["my-salary", currentMonth],
         queryFn: () => getMySalary(currentMonth),
