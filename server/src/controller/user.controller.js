@@ -157,7 +157,7 @@ const userLogin = async (req, res) => {
         res.status(200)
             .cookie("accessToken", accessToken, option)
             .cookie("refreshToken", refreshToken, option)
-            .json({ message: "User logged in successfully", user: user, accessToken });
+            .json({ message: "Admin logged in successfully", user: user, accessToken });
     }
     catch (error) {
         console.error("Error logging in user:", error);
