@@ -12,7 +12,7 @@ const UserDashboard = () => {
     const {
         data: attendanceData,
         isPending: attendancePending,
-        isError: attendanceError,
+        isError
     } = useQuery({
         queryKey: ["myattendance"],
         queryFn: getMyAttendance,

@@ -4,7 +4,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { logOut } from "../../../services/auth.api";
 import { MyTheme } from "../../../context/ThemeContext";
-import { CloudMoonIcon, Moon, MoonIcon, Sun, SunMoonIcon } from "lucide-react";
+import { MoonIcon, Sun,  } from "lucide-react";
 
 const AdminLayout = () => {
         const { dark, setDark } = useContext(MyTheme);

@@ -17,8 +17,6 @@ const AdminDashboard = () => {
 
     const {
         data: salaryData,
-        isPending: salaryPending,
-        isError: salaryError,
     } = useQuery({
         queryKey: ["my-salary", currentMonth],
         queryFn: () => getAllSalary(currentMonth),

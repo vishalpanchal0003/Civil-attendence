@@ -18,7 +18,6 @@ const Salary = () => {
         queryKey: ["salaryByMonth", salaryMonth],
         queryFn: () => getMySalary(salaryMonth),
     });
-console.log("full data ",data)
     const salary = data?.salary?.salary || 0;
     const presentDays = data?.salary?.attendance || 0;
     const dailyWage = data?.salary?.dailyWage || 0;
