@@ -12,7 +12,6 @@ app.use(
     origin: [
       process.env.CLIENT_URL,
       "http://localhost:3000",
-      "http://10.170.76.92:3000"
     ]
   })
 ); app.use(express.json());
