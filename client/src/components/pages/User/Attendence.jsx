@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMyAttendance } from "../../../services/attendance.api";
+import Loading from "../../common/Loader";
 
 const Attendence = () => {
   const {
@@ -12,17 +13,11 @@ const Attendence = () => {
     queryFn: getMyAttendance,
     queryKey: ["my-attendance"],
   });
-  console.log("my attendance at attendance jsx",data)
-  const attendanceRecords = data?.attendance || [];
-  console.log("myaatendance", attendanceRecords)
 
+  const attendanceRecords = data?.attendance || [];
   if (isLoading) {
     return (
-      <div className="w-full p-4 sm:p-6">
-        <p className="text-sm text-slate-500">
-          Loading attendance...
-        </p>
-      </div>
+      <Loading/>
     );
   }
 

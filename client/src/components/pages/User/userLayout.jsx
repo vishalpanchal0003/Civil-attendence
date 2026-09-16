@@ -1,10 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import React, { Suspense, useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { logOut } from "../../../services/auth.api";
 import { MyTheme } from "../../../context/ThemeContext";
-import { MoonIcon, Sun } from "lucide-react";
+import {
+    Calendar1Icon,
+    HomeIcon,
+    IndianRupee,
+    MoonIcon,
+    Sun,
+    User2,
+} from "lucide-react";
+import Loading from "../../common/Loader";
 
 const UserLayout = () => {
     const { dark, setDark } = useContext(MyTheme);
@@ -30,8 +38,6 @@ const UserLayout = () => {
         onError: (error) => {
             console.log("Logout error:", error);
 
-            // Token localStorage se remove kar dena
-            // chahe backend logout fail ho
             localStorage.removeItem("accessToken");
 
             toast.error(
@@ -48,19 +54,19 @@ const UserLayout = () => {
     // ================= DESKTOP NAV =================
 
     const navLinkClass = ({ isActive }) =>
-        `rounded-xl px-4 py-2 text-sm font-medium transition ${
-            isActive
-                ? "bg-indigo-600 text-white"
-                : "text-slate-600 hover:bg-slate-100"
+        `rounded-3xl px-4 py-2 text-sm font-medium transition ${isActive
+            ? "bg-indigo-600 text-white rounded-3xl"
+            : "text-slate-600 hover:bg-blue-300 rounded-3xl"
         }`;
 
     // ================= MOBILE NAV =================
 
     const mobileNavLinkClass = ({ isActive }) =>
-        `flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-xs font-medium transition ${
-            isActive
-                ? "text-indigo-600"
-                : "text-slate-500"
+        `w-11 h-11 flex items-center justify-center rounded-full
+        transition-all duration-300 ease-in-out
+        ${isActive
+            ? "bg-indigo-600 text-white scale-105"
+            : "text-slate-600 hover:bg-slate-100"
         }`;
 
     return (
@@ -71,11 +77,14 @@ const UserLayout = () => {
             {/* ================================================= */}
 
             <nav className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white shadow-sm">
-   <button
-           className="absolute mt-5 ml-2"
-           onClick={() => setDark(!dark)}>
-            {dark ? <Sun/> : <MoonIcon/>}
-        </button>
+
+                <button
+                    className="absolute mt-5 ml-2"
+                    onClick={() => setDark(!dark)}
+                >
+                    {dark ? <Sun /> : <MoonIcon />}
+                </button>
+
                 <div className="flex min-h-[64px] w-full items-center justify-between px-4 md:px-8">
 
                     {/* Logo */}
@@ -89,7 +98,6 @@ const UserLayout = () => {
                             Panel
                         </span>
                     </NavLink>
-
 
                     {/* Desktop Navigation */}
 
@@ -123,7 +131,6 @@ const UserLayout = () => {
                             Profile
                         </NavLink>
 
-
                         {/* Logout */}
 
                         <button
@@ -140,7 +147,6 @@ const UserLayout = () => {
                         </button>
 
                     </div>
-
 
                     {/* Mobile Logout */}
 
@@ -161,15 +167,15 @@ const UserLayout = () => {
 
             </nav>
 
-
             {/* ================================================= */}
             {/* MAIN CONTENT */}
             {/* ================================================= */}
 
-            <main className="w-full pb-20 md:pb-0">
-                <Outlet />
-            </main>
-
+        <main className="pb-20 md:pb-0">
+    <Suspense fallback={<Loading />}>
+        <Outlet />
+    </Suspense>
+</main>
 
             {/* ================================================= */}
             {/* MOBILE BOTTOM NAVBAR */}
@@ -185,15 +191,8 @@ const UserLayout = () => {
                         to="/dashboard"
                         className={mobileNavLinkClass}
                     >
-                        <span className="text-xl">
-                            🏠
-                        </span>
-
-                        <span>
-                            Dashboard
-                        </span>
+                        <HomeIcon />
                     </NavLink>
-
 
                     {/* Attendance */}
 
@@ -201,15 +200,8 @@ const UserLayout = () => {
                         to="/myattendance"
                         className={mobileNavLinkClass}
                     >
-                        <span className="text-xl">
-                            📋
-                        </span>
-
-                        <span>
-                            Attendance
-                        </span>
+                        <Calendar1Icon />
                     </NavLink>
-
 
                     {/* Salary */}
 
@@ -217,15 +209,8 @@ const UserLayout = () => {
                         to="/salary"
                         className={mobileNavLinkClass}
                     >
-                        <span className="text-xl">
-                            💰
-                        </span>
-
-                        <span>
-                            Salary
-                        </span>
+                        <IndianRupee />
                     </NavLink>
-
 
                     {/* Profile */}
 
@@ -233,13 +218,7 @@ const UserLayout = () => {
                         to="/profile"
                         className={mobileNavLinkClass}
                     >
-                        <span className="text-xl">
-                            👤
-                        </span>
-
-                        <span>
-                            Profile
-                        </span>
+                        <User2 />
                     </NavLink>
 
                 </div>

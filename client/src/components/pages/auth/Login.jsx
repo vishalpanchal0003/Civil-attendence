@@ -17,6 +17,7 @@ const Login = () => {
     const loginMutation = useMutation({
         mutationFn: (userData) => loginUser(userData),
         onSuccess: (response) => {
+            console.log("login message" ,response)
             localStorage.setItem("accessToken", response.accessToken);
 
             if (response?.user?.userRole === "admin") {

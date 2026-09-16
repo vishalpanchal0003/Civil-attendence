@@ -1,65 +1,190 @@
 import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
-import Register from "./pages/auth/Register";
-import Login from "./pages/auth/Login";
+import Loading from "./common/Loader";
 
-import UserLayout from "./pages/User/userLayout";
-import UserDashboard from "./pages/User/UserDashboard";
-import Attendance from "./pages/User/Attendence";
-import UserProfile from "./pages/User/UserProfile";
-import ForgetPassword from "./pages/User/ForgetPassword";
-import ProtectedRoute from "./pages/User/ProtectedRoute";
-import Salary from "./pages/User/Salary";
-import AdminRegister from './pages/admin/Register'
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminLayout from "./pages/admin/AdminLayout";
-import AllWorkers from "./pages/admin/AllWorkers";
-import AllWorkerAttendacne from "./pages/admin/AllWorkerAttendacne";
-import AllWorkerSalary from "./pages/admin/AllWorkerSalary";
-import AdminProfile from "./pages/admin/AdminProfile";
+const Register = lazy(() => import("./pages/auth/Register"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const UserLayout = lazy(() => import("./pages/User/userLayout"));
+const UserDashboard = lazy(() => import("./pages/User/UserDashboard"));
+const Attendance = lazy(() => import("./pages/User/Attendence"));
+const UserProfile = lazy(() => import("./pages/User/UserProfile"));
+const ForgetPassword = lazy(() => import("./pages/User/ForgetPassword"));
+const ProtectedRoute = lazy(() => import("./pages/User/ProtectedRoute"));
+const Salary = lazy(() => import("./pages/User/Salary"));
 
+const AdminRegister = lazy(() => import("./pages/admin/Register"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
+const AllWorkers = lazy(() => import("./pages/admin/AllWorkers"));
+const AllWorkerAttendacne = lazy(() =>
+    import("./pages/admin/AllWorkerAttendacne")
+);
+const AllWorkerSalary = lazy(() =>
+    import("./pages/admin/AllWorkerSalary")
+);
+const AdminProfile = lazy(() =>
+    import("./pages/admin/AdminProfile")
+);
 
 const Layout = () => {
     return (
         <Routes>
 
-            {/* Auth Routes */}
+            {/* ================= AUTH ROUTES ================= */}
+
             <Route
                 path="/"
-                element={<Register />}
+                element={
+                    <Suspense fallback={<Loading />}>
+                        <Register />
+                    </Suspense>
+                }
             />
+
             <Route
                 path="/register/admin"
-                element={<AdminRegister />}
+                element={
+                    <Suspense fallback={<Loading />}>
+                        <AdminRegister />
+                    </Suspense>
+                }
             />
 
             <Route
                 path="/forgetpassword"
-                element={<ForgetPassword />}
+                element={
+                    <Suspense fallback={<Loading />}>
+                        <ForgetPassword />
+                    </Suspense>
+                }
             />
+
             <Route
                 path="/login"
-                element={<Login />}
+                element={
+                    <Suspense fallback={<Loading />}>
+                        <Login />
+                    </Suspense>
+                }
             />
 
-            {/* Protected Routes */}
-            <Route element={<ProtectedRoute />}>
 
-                {/* User */}
-                <Route element={<UserLayout />}>
-                    <Route path="/dashboard" element={<UserDashboard />} />
-                    <Route path="/myattendance" element={<Attendance />} />
-                    <Route path="/salary" element={<Salary />} />
-                    <Route path="/profile" element={<UserProfile />} />
+            {/* ================= PROTECTED ROUTES ================= */}
+
+            <Route
+                element={
+                    <Suspense fallback={<Loading />}>
+                        <ProtectedRoute />
+                    </Suspense>
+                }
+            >
+
+
+                {/* ================= USER ================= */}
+
+                <Route
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <UserLayout />
+                        </Suspense>
+                    }
+                >
+
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <UserDashboard />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path="/myattendance"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <Attendance />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path="/salary"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <Salary />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path="/profile"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <UserProfile />
+                            </Suspense>
+                        }
+                    />
+
                 </Route>
 
-                {/* Admin */}
-                <Route element={<AdminLayout />}>
-                    <Route path="/adminDashboard" element={<AdminDashboard />} />
-                    <Route path="/admin/workers" element={<AllWorkers />} />
-                    <Route path="/admin/attendance" element={<AllWorkerAttendacne />} />
-                    <Route path="/admin/salary" element={<AllWorkerSalary />} />
-                    *<Route path="/admin/profile" element={<AdminProfile />} />
+
+                {/* ================= ADMIN ================= */}
+
+                <Route
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <AdminLayout />
+                        </Suspense>
+                    }
+                >
+
+                    <Route
+                        path="/adminDashboard"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <AdminDashboard />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/workers"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <AllWorkers />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/attendance"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <AllWorkerAttendacne />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/salary"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <AllWorkerSalary />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/profile"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <AdminProfile />
+                            </Suspense>
+                        }
+                    />
+
                 </Route>
 
             </Route>
