@@ -96,17 +96,27 @@ const signOut = async (req, res) => {
 const getMyAttendance = async (req, res) => {
     try {
         const userId = req.user._id;
-        const attendanceRecords = await Attendance.find({ userId: userId, })
+
+        const attendanceRecords = await Attendance
+            .find({
+                userId: userId
+            })
             .populate("userId", "name mobile")
             .sort({ date: -1 });
-        // const Present = attendanceRecords.workingHours >= 8 * 60 * 60;
-        // const absent = attendanceRecords.workingHours <= 4 * 60 * 60;
-        res.status(200).json({ message: "Attendance records retrieved successfully", attendance: attendanceRecords });
+
+        return res.status(200).json({
+            message: "Attendance records retrieved successfully",
+            attendance: attendanceRecords
+        });
+
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "Internal server error" });
+        console.log(error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
     }
-}
+};
 
 const getAllAttendance = async (req, res) => {
     try {
@@ -125,11 +135,13 @@ const calculateSalaryOne = async (req, res) => {
     try {
         const userId = req.user._id;
         const { month } = req.query;
-        if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) {
+
+        if (!month || !/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) {
             return res.status(400).json({
                 message: "Month is required"
             });
         }
+
         const user = await UserModel
             .findById(userId)
             .select("name mobile dailyWage");
@@ -141,8 +153,14 @@ const calculateSalaryOne = async (req, res) => {
         }
 
         const startDate = `${month}-01`;
+
         const [year, monthNumber] = month.split("-").map(Number);
-        const endDate = `${month}-${String(new Date(Date.UTC(year, monthNumber, 0)).getUTCDate()).padStart(2, "0")}`;
+
+        const endDate = `${month}-${String(
+            new Date(
+                Date.UTC(year, monthNumber, 0)
+            ).getUTCDate()
+        ).padStart(2, "0")}`;
 
         const attendance = await Attendance.find({
             userId: userId,
@@ -150,8 +168,12 @@ const calculateSalaryOne = async (req, res) => {
                 $gte: startDate,
                 $lte: endDate
             },
-            status: { $in: ["Present", "Half Day", "Absent"] }
+            status: {
+                $in: ["Present", "Half Day", "Absent"]
+            }
         });
+
+        // ================= PRESENT DAYS =================
 
         const presentDays = attendance.filter(
             (record) =>
@@ -159,17 +181,28 @@ const calculateSalaryOne = async (req, res) => {
                 record.workingHours >= 8
         ).length;
 
+
+        // ================= HALF DAYS =================
+
         const halfDays = attendance.filter(
             (record) =>
                 record.status === "Half Day" &&
-                record.workingHours <= 5 &&
-                record.workingHours >= 1
+                record.workingHours >= 1 &&
+                record.workingHours < 8
         ).length;
-        const dailyWage = user.dailyWage
-        const salary = (presentDays + halfDays / 2) * user.dailyWage;
+
+
+        // ================= SALARY =================
+
+        const dailyWage = user.dailyWage;
+
+        const salary =
+            (presentDays + halfDays / 2) * dailyWage;
+
 
         return res.status(200).json({
             message: "Monthly salary fetched successfully",
+
             salary: {
                 name: user.name,
                 mobile: user.mobile,
