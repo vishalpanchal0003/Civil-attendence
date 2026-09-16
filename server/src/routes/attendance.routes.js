@@ -1,6 +1,6 @@
 
 import express from "express";
-import { signIn, signOut, calculateSalaryOne, getMyAttendance, getAllAttendance, calculateSalaryAll } from "../controller/attendance.controller.js";
+import { signIn, signOut, calculateSalaryOne, getMyAttendance, getAllAttendance, calculateSalaryAll, updateSignInAndSignOff } from "../controller/attendance.controller.js";
 import jwtVerify from "../middlewares/jwtVerity.js";
 import verifyRole from "../middlewares/roleVerify.js";
 import adminStats from "../controller/adminStats.controller.js";
@@ -14,6 +14,7 @@ router.get("/getallattendance", jwtVerify, verifyRole, getAllAttendance);
 router.post("/getsalary", jwtVerify, calculateSalaryOne);
 router.get("/getallsalary", jwtVerify,verifyRole, calculateSalaryAll);
 router.get("/adminstats", jwtVerify,verifyRole, adminStats);
+router.patch("/updateSignInOut/:id", jwtVerify,verifyRole, updateSignInAndSignOff);
 
 
 export default router;

@@ -1,4 +1,4 @@
-import {attendanceApi} from "./api";
+import { attendanceApi } from "./api";
 
 export const signIn = async () => {
     const response = await attendanceApi.post("/signin");
@@ -13,9 +13,9 @@ export const signOff = async () => {
 export const getMyAttendance = async () => {
     const response = await attendanceApi.get("/getattendance");
     return response.data;
-}; 
+};
 
-export const adminStats = async()=>{
+export const adminStats = async () => {
     const response = await attendanceApi.get("/adminstats")
     return response.data
 }
@@ -45,3 +45,8 @@ export const getAllSalary = async (month) => {
     });
     return response.data;
 };
+
+export const updateSignInSignOutTime = async (id, userData) => {
+    const response = await attendanceApi.patch(`/updateSignInOut/${id}`, userData)
+    return response.data
+}

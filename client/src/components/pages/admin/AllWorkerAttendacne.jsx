@@ -1,20 +1,87 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { getAllAttendance } from "../../../services/attendance.api";
+import {
+    getAllAttendance,
+    updateSignInSignOutTime,
+} from "../../../services/attendance.api";
+import { toast } from "sonner";
+import { Edit, X } from "lucide-react";
 
 const AllWorkerAttendacne = () => {
+
+    const [isSelected, setIsSelected] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+
 
     const { data, isPending } = useQuery({
         queryKey: ["allworkerattendacne"],
         queryFn: getAllAttendance,
+
+        onSuccess: (response) => {
+            toast.success(response?.message || "update success");
+        },
+
+        onError: (error) => {
+            toast.error(
+                error?.response?.data?.message || "Something went wrong"
+            );
+        },
     });
+
+    const [entrytime, setEntryTime] = useState({
+        signIn: data,
+        signOut: "",
+    });
+    // ================= UPDATE ENTRY TIME =================
+
+    const updateEntryTimeMutation = useMutation({
+        mutationFn: ({ id, userData }) =>
+            updateSignInSignOutTime(id, userData),
+
+        mutationKey: ["updateEntryTime"],
+
+        onSuccess: (response) => {
+            toast.success(
+                response?.message || "Attendance updated successfully"
+            );
+
+            setIsOpen(false);
+
+            setEntryTime({
+                signIn: "",
+                signOut: "",
+            });
+        },
+
+        onError: (error) => {
+            console.log("error at update entry",error)
+            toast.error(
+                error?.response?.data?.message ||
+                "Failed to update attendance"
+            );
+        },
+    });
+
+    // ================= HANDLE UPDATE =================
+
+    const handleEntryTime = (e) => {
+        e.preventDefault();
+
+        if (!entrytime.signIn || !entrytime.signOut) {
+            toast.error("All fields are required!");
+            return;
+        }
+
+        updateEntryTimeMutation.mutate({
+            id: isSelected,
+            userData: entrytime,
+        });
+    };
+
+    // ================= FILTER =================
 
     const [filterDate, setFilterDate] = useState("");
     const [filterStatus, setFilterStatus] = useState("all");
-
-    // =========================
-    // FILTER
-    // =========================
 
     const filterData = data?.allAttendance?.filter((record) => {
 
@@ -33,11 +100,172 @@ const AllWorkerAttendacne = () => {
     return (
         <div className="min-h-screen bg-slate-50 px-4 py-6 md:px-6 md:py-8 lg:px-8">
 
+            {/* ================= UPDATE MODAL ================= */}
+
+            {isOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+
+                    <div className="w-full max-w-md rounded-2xl bg-white border border-slate-200 shadow-2xl p-6">
+
+                        {/* MODAL HEADER */}
+
+                        <div className="flex items-start justify-between mb-6">
+
+                            <div>
+                                <h2 className="text-xl font-bold text-slate-900">
+                                    Update Attendance
+                                </h2>
+
+                                <p className="text-sm text-slate-500 mt-1">
+                                    Update sign in and sign out time
+                                </p>
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setIsOpen(false);
+
+                                    setEntryTime({
+                                        signIn: "",
+                                        signOut: "",
+                                    });
+                                }}
+                                className="w-9 h-9 flex items-center justify-center rounded-full
+                                text-slate-500
+                                hover:text-red-500
+                                hover:bg-red-50
+                                transition-all duration-200"
+                            >
+                                <X size={20} />
+                            </button>
+
+                        </div>
+
+
+                        {/* FORM */}
+
+                        <form
+                            onSubmit={handleEntryTime}
+                            className="space-y-5"
+                        >
+
+                            {/* SIGN IN */}
+
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                    Sign In Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    name="signIn"
+                                    value={entrytime.signIn}
+                                    onChange={(e) =>
+                                        setEntryTime({
+                                            ...entrytime,
+                                            [e.target.name]:
+                                                e.target.value,
+                                        })
+                                    }
+                                    className="w-full h-12 px-4 rounded-xl
+                                    border-2 border-slate-200
+                                    bg-slate-50
+                                    text-slate-800
+                                    outline-none
+                                    focus:border-indigo-500
+                                    focus:ring-4 focus:ring-indigo-500/10
+                                    transition-all duration-200"
+                                />
+                            </div>
+
+
+                            {/* SIGN OUT */}
+
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                    Sign Out Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    name="signOut"
+                                    value={entrytime.signOut}
+                                    onChange={(e) =>
+                                        setEntryTime({
+                                            ...entrytime,
+                                            [e.target.name]:
+                                                e.target.value,
+                                        })
+                                    }
+                                    className="w-full h-12 px-4 rounded-xl
+                                    border-2 border-slate-200
+                                    bg-slate-50
+                                    text-slate-800
+                                    outline-none
+                                    focus:border-indigo-500
+                                    focus:ring-4 focus:ring-indigo-500/10
+                                    transition-all duration-200"
+                                />
+                            </div>
+
+
+                            {/* BUTTONS */}
+
+                            <div className="flex gap-3 pt-2">
+
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setIsOpen(false);
+
+                                        setEntryTime({
+                                            signIn: "",
+                                            signOut: "",
+                                        });
+                                    }}
+                                    className="flex-1 h-11 rounded-xl
+                                    border border-slate-200
+                                    text-slate-600
+                                    font-semibold
+                                    hover:bg-slate-100
+                                    transition-all duration-200"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    disabled={
+                                        updateEntryTimeMutation.isPending
+                                    }
+                                    className="flex-1 h-11 rounded-xl
+                                    bg-indigo-600
+                                    text-white
+                                    font-semibold
+                                    hover:bg-indigo-700
+                                    disabled:bg-indigo-300
+                                    disabled:cursor-not-allowed
+                                    transition-all duration-200"
+                                >
+                                    {updateEntryTimeMutation.isPending
+                                        ? "Updating..."
+                                        : "Update"}
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            )}
+
+
             <div className="mx-auto max-w-7xl">
 
-                {/* =========================
-                    HEADER
-                ========================= */}
+                {/* ================= HEADER ================= */}
 
                 <div className="mb-8">
 
@@ -52,9 +280,7 @@ const AllWorkerAttendacne = () => {
                 </div>
 
 
-                {/* =========================
-                    FILTERS
-                ========================= */}
+                {/* ================= FILTERS ================= */}
 
                 <div className="bg-white rounded-2xl border border-slate-200 p-4 md:p-6 mb-6 shadow-sm">
 
@@ -74,7 +300,14 @@ const AllWorkerAttendacne = () => {
                                 onChange={(e) =>
                                     setFilterDate(e.target.value)
                                 }
-                                className="w-full h-11 md:h-12 px-4 rounded-lg md:rounded-xl border-2 border-slate-200 bg-slate-50 text-sm md:text-base outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition"
+                                className="w-full h-11 md:h-12 px-4 rounded-lg md:rounded-xl
+                                border-2 border-slate-200
+                                bg-slate-50
+                                text-sm md:text-base
+                                outline-none
+                                focus:border-indigo-500
+                                focus:ring-4 focus:ring-indigo-500/10
+                                transition"
                             />
 
                         </div>
@@ -93,7 +326,14 @@ const AllWorkerAttendacne = () => {
                                 onChange={(e) =>
                                     setFilterStatus(e.target.value)
                                 }
-                                className="w-full h-11 md:h-12 px-4 rounded-lg md:rounded-xl border-2 border-slate-200 bg-slate-50 text-sm md:text-base outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition cursor-pointer"
+                                className="w-full h-11 md:h-12 px-4 rounded-lg md:rounded-xl
+                                border-2 border-slate-200
+                                bg-slate-50
+                                text-sm md:text-base
+                                outline-none
+                                focus:border-indigo-500
+                                focus:ring-4 focus:ring-indigo-500/10
+                                transition cursor-pointer"
                             >
 
                                 <option value="all">
@@ -121,9 +361,7 @@ const AllWorkerAttendacne = () => {
                 </div>
 
 
-                {/* =========================
-                    LOADING STATE
-                ========================= */}
+                {/* ================= LOADING ================= */}
 
                 {isPending && (
 
@@ -141,9 +379,7 @@ const AllWorkerAttendacne = () => {
                 )}
 
 
-                {/* =========================
-                    DESKTOP TABLE
-                ========================= */}
+                {/* ================= DESKTOP TABLE ================= */}
 
                 {!isPending && data?.allAttendance && (
 
@@ -183,6 +419,10 @@ const AllWorkerAttendacne = () => {
                                             Work Hours
                                         </th>
 
+                                        <th className="text-left px-6 py-4 text-xs md:text-sm font-semibold text-slate-700">
+                                            Action
+                                        </th>
+
                                     </tr>
 
                                 </thead>
@@ -197,7 +437,7 @@ const AllWorkerAttendacne = () => {
                                         <tr>
 
                                             <td
-                                                colSpan="6"
+                                                colSpan="7"
                                                 className="text-center py-10 text-slate-500"
                                             >
                                                 Attendance record not found
@@ -307,6 +547,39 @@ const AllWorkerAttendacne = () => {
 
                                                 </td>
 
+
+                                                {/* EDIT */}
+
+                                                <td className="px-6 py-4">
+
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setIsSelected(record._id);
+
+                                                            setEntryTime({
+                                                                signIn: record.signIn
+                                                                    ? new Date(record.signIn).toTimeString().slice(0, 5)
+                                                                    : "",
+                                                                signOut: record.signOut
+                                                                    ? new Date(record.signOut).toTimeString().slice(0, 5)
+                                                                    : "",
+                                                            });
+
+                                                            setIsOpen(true);
+                                                        }}
+                                                        className="w-9 h-9 flex items-center justify-center
+                                                        rounded-lg
+                                                        text-slate-500
+                                                        hover:text-indigo-600
+                                                        hover:bg-indigo-50
+                                                        transition-all duration-200"
+                                                    >
+                                                        <Edit size={18} />
+                                                    </button>
+
+                                                </td>
+
                                             </tr>
 
                                         ))
@@ -324,9 +597,7 @@ const AllWorkerAttendacne = () => {
                 )}
 
 
-                {/* =========================
-                    MOBILE CARDS
-                ========================= */}
+                {/* ================= MOBILE CARDS ================= */}
 
                 {!isPending && data?.allAttendance && (
 
@@ -335,9 +606,7 @@ const AllWorkerAttendacne = () => {
                         {filterData?.length === 0 ? (
 
                             <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-500">
-
                                 Attendance record not found
-
                             </div>
 
                         ) : (
@@ -471,6 +740,26 @@ const AllWorkerAttendacne = () => {
 
                                     </div>
 
+
+                                    {/* EDIT BUTTON */}
+
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setIsSelected(record._id);
+                                            setIsOpen(true);
+                                        }}
+                                        className="w-full mt-4 h-10 rounded-xl
+                                        flex items-center justify-center gap-2
+                                        bg-indigo-50 text-indigo-600
+                                        font-semibold text-sm
+                                        hover:bg-indigo-100
+                                        transition-all duration-200"
+                                    >
+                                        <Edit size={17} />
+                                        Edit Attendance
+                                    </button>
+
                                 </div>
 
                             ))
@@ -480,6 +769,9 @@ const AllWorkerAttendacne = () => {
                     </div>
 
                 )}
+
+
+                {/* ================= NO DATA ================= */}
 
                 {!isPending &&
                     (!data?.allAttendance ||

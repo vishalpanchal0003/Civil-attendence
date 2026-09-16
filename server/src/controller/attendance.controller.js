@@ -221,7 +221,6 @@ const calculateSalaryAll = async (req, res) => {
             totalSalaryOfAllWorker += userSalary
             allUsersSalary.push({
                 name: user.name,
-                // month,
                 dailyWage: user.dailyWage,
                 mobile: user.mobile,
                 attendance: presentDays,
@@ -245,4 +244,30 @@ const calculateSalaryAll = async (req, res) => {
     }
 };
 
-export { signOut, signIn, calculateSalaryOne, getAllAttendance, getMyAttendance, calculateSalaryAll }
+const updateSignInAndSignOff = async (req, res) => {
+    try {
+        const { signIn, signOut } = req.body;
+        let { id } = req.params;
+        if (!id) {
+            return res.status(404).json({ message: "user not found !" })
+        }
+        if (!signIn || !signOut) {
+            return res.status(400).json({ message: "fileds are required !" })
+        }
+        const currentUser = await Attendance.findById(id)
+        if (!currentUser) {
+            return res.status(404).json({
+                message: "Attendance record not found"
+            });
+        }
+        currentUser.signIn = signIn;
+        currentUser.signOut = signOut;
+        await currentUser.save({ validateBeforeSave: true })
+        res.status(200).json({ message: "SignIn/SignOut time update successfully" })
+    } catch (error) {
+        return res.status(500).json({ message: "somthing happend while updating signIn/signOut time" })
+    }
+}
+
+
+export { signOut, signIn, calculateSalaryOne, getAllAttendance, getMyAttendance, calculateSalaryAll, updateSignInAndSignOff }
