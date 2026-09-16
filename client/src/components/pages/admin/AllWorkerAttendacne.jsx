@@ -54,7 +54,7 @@ const AllWorkerAttendacne = () => {
         },
 
         onError: (error) => {
-            console.log("error at update entry",error)
+            console.log("error at update entry", error)
             toast.error(
                 error?.response?.data?.message ||
                 "Failed to update attendance"
@@ -522,12 +522,12 @@ const AllWorkerAttendacne = () => {
 
                                                     <span
                                                         className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${record.status ===
-                                                                "Present"
-                                                                ? "bg-green-100 text-green-700"
-                                                                : record.status ===
-                                                                    "Half Day"
-                                                                    ? "bg-yellow-100 text-yellow-700"
-                                                                    : "bg-red-100 text-red-700"
+                                                            "Present"
+                                                            ? "bg-green-100 text-green-700"
+                                                            : record.status ===
+                                                                "Half Day"
+                                                                ? "bg-yellow-100 text-yellow-700"
+                                                                : "bg-red-100 text-red-700"
                                                             }`}
                                                     >
                                                         {record.status || "--"}
@@ -647,10 +647,10 @@ const AllWorkerAttendacne = () => {
 
                                         <span
                                             className={`px-3 py-1 rounded-full text-xs font-semibold ${record.status === "Present"
-                                                    ? "bg-green-100 text-green-700"
-                                                    : record.status === "Half Day"
-                                                        ? "bg-yellow-100 text-yellow-700"
-                                                        : "bg-red-100 text-red-700"
+                                                ? "bg-green-100 text-green-700"
+                                                : record.status === "Half Day"
+                                                    ? "bg-yellow-100 text-yellow-700"
+                                                    : "bg-red-100 text-red-700"
                                                 }`}
                                         >
                                             {record.status || "--"}
@@ -746,6 +746,14 @@ const AllWorkerAttendacne = () => {
                                     <button
                                         type="button"
                                         onClick={() => {
+                                            setEntryTime({
+                                                signIn: record.signIn
+                                                    ? new Date(record.signIn).toTimeString().slice(0, 5)
+                                                    : "",
+                                                signOut: record.signOut
+                                                    ? new Date(record.signOut).toTimeString().slice(0, 5)
+                                                    : "",
+                                            });
                                             setIsSelected(record._id);
                                             setIsOpen(true);
                                         }}

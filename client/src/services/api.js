@@ -1,7 +1,7 @@
 import axios from 'axios';
 const authUrl = `${process.env.REACT_APP_API_URL}/users`;
 const attendanceUrl = `${process.env.REACT_APP_API_URL}/attendance`;
-// const cheakingUrl = 'http://localhost:4000/api/attendacne'
+
 
 const authApi = axios.create({
     baseURL: authUrl
@@ -20,7 +20,7 @@ authApi.interceptors.request.use((config) => {
 
 
 const attendanceApi = axios.create({
-    baseURL:attendanceUrl
+    baseURL: attendanceUrl
 });
 
 attendanceApi.interceptors.request.use((config) => {

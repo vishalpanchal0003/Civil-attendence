@@ -279,27 +279,79 @@ const calculateSalaryAll = async (req, res) => {
 const updateSignInAndSignOff = async (req, res) => {
     try {
         const { signIn, signOut } = req.body;
-        let { id } = req.params;
+        const { id } = req.params;
+
         if (!id) {
-            return res.status(404).json({ message: "user not found !" })
-        }
-        if (!signIn || !signOut) {
-            return res.status(400).json({ message: "fileds are required !" })
-        }
-        const currentUser = await Attendance.findById(id)
-        if (!currentUser) {
             return res.status(404).json({
-                message: "Attendance record not found"
+                message: "Attendance record not found!"
             });
         }
-        currentUser.signIn = signIn;
-        currentUser.signOut = signOut;
-        await currentUser.save({ validateBeforeSave: true })
-        res.status(200).json({ message: "SignIn/SignOut time update successfully" })
+
+        if (!signIn || !signOut) {
+            return res.status(400).json({
+                message: "Fields are required!"
+            });
+        }
+
+        const currentUser = await Attendance.findById(id);
+
+        if (!currentUser) {
+            return res.status(404).json({
+                message: "Attendance record not found!"
+            });
+        }
+
+        // Existing attendance date + new time
+        const newSignIn = new Date(
+            `${currentUser.date}T${signIn}:00`
+        );
+
+        const newSignOut = new Date(
+            `${currentUser.date}T${signOut}:00`
+        );
+
+        if (isNaN(newSignIn.getTime()) || isNaN(newSignOut.getTime())) {
+            return res.status(400).json({
+                message: "Invalid sign in or sign out time"
+            });
+        }
+
+        if (newSignOut <= newSignIn) {
+            return res.status(400).json({
+                message: "Sign out time must be greater than sign in time"
+            });
+        }
+
+        currentUser.signIn = newSignIn;
+        currentUser.signOut = newSignOut;
+
+        // Recalculate working hours
+        currentUser.workingHours =
+            (newSignOut - newSignIn) / (1000 * 60 * 60);
+
+        // Recalculate status
+        currentUser.status =
+            currentUser.workingHours >= 8
+                ? "Present"
+                : currentUser.workingHours > 2
+                    ? "Half Day"
+                    : "Absent";
+
+        await currentUser.save();
+
+        return res.status(200).json({
+            message: "SignIn/SignOut time updated successfully",
+            attendance: currentUser
+        });
+
     } catch (error) {
-        return res.status(500).json({ message: "somthing happend while updating signIn/signOut time" })
+        console.log("Attendance edit error:", error);
+
+        return res.status(500).json({
+            message: "Something happened while updating signIn/signOut time"
+        });
     }
-}
+};
 
 
 export { signOut, signIn, calculateSalaryOne, getAllAttendance, getMyAttendance, calculateSalaryAll, updateSignInAndSignOff }
