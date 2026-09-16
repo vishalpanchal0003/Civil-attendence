@@ -73,10 +73,9 @@ const signOut = async (req, res) => {
             attendance.signOut = now;
         attendance.workingHours = (attendance.signOut - attendance.signIn) / (1000 * 60 * 60)
         attendance.status =
-            attendance.status =
             attendance.workingHours >= 8
                 ? "Present"
-                : attendance.workingHours > 2 && attendance.workingHours <= 5
+                : attendance.workingHours > 2
                     ? "Half Day"
                     : "Absent";
 
