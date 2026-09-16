@@ -98,7 +98,6 @@ const AdminDashboard = () => {
 
 
             {/* Recent Attendance */}
-            {/* Recent Attendance */}
             <div className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
 
                 {/* Header */}
@@ -261,7 +260,7 @@ const AdminDashboard = () => {
 
 
                 {/* ================= MOBILE CARDS ================= */}
-                <div className="md:hidden p-4 space-y-3">
+                <div className=" md:hidden p-4 space-y-3">
 
                     {attendacneLoading ? (
                         <div className="py-10 text-center text-slate-500">
@@ -272,7 +271,7 @@ const AdminDashboard = () => {
                         todayPunch.map((record) => (
                             <div
                                 key={record._id}
-                                className="border border-slate-200 rounded-xl p-4 bg-slate-50/50"
+                                className="stat-card border border-slate-200 rounded-xl p-4 bg-slate-50/50"
                             >
 
                                 {/* Top */}
