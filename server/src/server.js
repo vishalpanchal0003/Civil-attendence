@@ -10,12 +10,18 @@ const app = express();
 app.use(
   cors({
     origin: [
-      process.env.CLIENT_URL,
       "http://localhost:3000",
-      'https://civilworkmanagment-mu.vercel.app/'
-    ]
+      "https://civilworkmanagment-mu.vercel.app",
+    ],
+    credentials: true,
   })
-); app.use(express.json());
+);
+
+app.use(express.json());
+
+app.use("/users", userRoutes);
+app.use("/attendance", attendanceRoutes);
+
 
 app.use("/api/users", userRoutes);
 app.use("/api/attendance", attendanceRoutes);
