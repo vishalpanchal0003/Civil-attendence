@@ -42,6 +42,7 @@ const AllWorkerAttendacne = () => {
 
         onSuccess: (response) => {
             toast.success(
+                console.log("update entry times at allworkerattendance",response),
                 response?.message || "Attendance updated successfully"
             );
 

@@ -3,6 +3,7 @@ const authUrl = `${process.env.REACT_APP_API_URL}/users`;
 const attendanceUrl = `${process.env.REACT_APP_API_URL}/attendance`;
 
 
+
 const authApi = axios.create({
     baseURL: authUrl
 })

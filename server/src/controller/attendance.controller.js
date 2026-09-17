@@ -26,6 +26,7 @@ const signIn = async (req, res) => {
             userId: userId,
             date: date,
             time: time,
+            status:"Present",
             signIn: now,
         });
 

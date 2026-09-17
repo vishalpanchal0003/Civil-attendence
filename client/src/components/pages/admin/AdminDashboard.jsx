@@ -13,7 +13,7 @@ const AdminDashboard = () => {
         .slice(0, 7);
 
 
-
+console.log("admin stats",stats)
 
     const {
         data: salaryData,
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
         queryFn: getAllAttendance
     })
     const todayDate = new Date().toISOString().slice(0, 10)
-    const todayPunch = todayAttendance?.allAttendance?.filter((record) => record?.date === todayDate )
+    const todayPunch = todayAttendance?.allAttendance?.filter((record) => record?.date === todayDate)
 
     return (
         <div className="min-h-screen bg-slate-50 p-4   md:p-6 lg:p-8">
@@ -223,10 +223,10 @@ const AdminDashboard = () => {
 
                                             <span
                                                 className={`inline-flex px-3 py-1.5 rounded-full text-xs font-semibold ${record.status === "Present"
-                                                        ? "bg-green-100 text-green-700"
-                                                        : record.status === "Half Day"
-                                                            ? "bg-yellow-100 text-yellow-700"
-                                                            : "bg-red-100 text-red-700"
+                                                    ? "bg-green-100 text-green-700"
+                                                    : record.status === "Half Day"
+                                                        ? "bg-yellow-100 text-yellow-700"
+                                                        : "bg-red-100 text-red-700"
                                                     }`}
                                             >
                                                 {record.status}
@@ -300,10 +300,10 @@ const AdminDashboard = () => {
 
                                     <span
                                         className={`shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold ${record.status === "Present"
-                                                ? "bg-green-100 text-green-700"
-                                                : record.status === "Half Day"
-                                                    ? "bg-yellow-100 text-yellow-700"
-                                                    : "bg-red-100 text-red-700"
+                                            ? "bg-green-100 text-green-700"
+                                            : record.status === "Half Day"
+                                                ? "bg-yellow-100 text-yellow-700"
+                                                : "bg-red-100 text-red-700"
                                             }`}
                                     >
                                         {record.status}
