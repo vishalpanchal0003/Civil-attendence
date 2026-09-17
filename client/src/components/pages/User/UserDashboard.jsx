@@ -215,14 +215,14 @@ const UserDashboard = () => {
 
                                 <div
                                     key={record._id}
-                                    className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 transition duration-200 hover:bg-white hover:shadow-sm sm:p-5"
+                                    className="stat-card rounded-2xl border border-slate-200 bg-slate-50/70 p-4 transition duration-200 hover:bg-white hover:shadow-sm sm:p-5"
                                 >
 
                                     {/* ================= TOP INFO ================= */}
 
-                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                                    <div className=" flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
-                                        <div className="flex items-center gap-3">
+                                        <div className=" flex items-center gap-3">
 
                                             {/* Avatar */}
 
@@ -255,7 +255,7 @@ const UserDashboard = () => {
                                         {/* Status */}
 
                                         <span
-                                            className={`w-fit shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${record.status === "Present"
+                                            className={`stat-card w-fit shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${record.status === "Present"
                                                 ? "bg-green-100 text-green-700"
                                                 : record.status === "Half Day"
                                                     ? "bg-yellow-100 text-yellow-700"

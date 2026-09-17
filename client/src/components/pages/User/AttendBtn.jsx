@@ -43,7 +43,7 @@ const AttendBtn = () => {
             <button
                 onClick={handleSignIn}
                 disabled={signInMutation.isPending || signOffMutation.isPending}
-                className="flex-1 h-12 px-6 rounded-xl bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white font-semibold transition"
+                className="flex-1 h-20  px-6 rounded-3xl bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white font-semibold transition"
             >
                 {signInMutation.isPending ? "Signing In..." : "Sign In"}
             </button>
@@ -51,7 +51,7 @@ const AttendBtn = () => {
             <button
                 onClick={handleSignOff}
                 disabled={signInMutation.isPending || signOffMutation.isPending}
-                className="flex-1 h-12 px-6 rounded-xl bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white font-semibold transition"
+                className="flex-1 h-20  px-6 rounded-3xl bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white font-semibold transition"
             >
                 {signOffMutation.isPending ? "Signing Off..." : "Sign Off"}
             </button>
