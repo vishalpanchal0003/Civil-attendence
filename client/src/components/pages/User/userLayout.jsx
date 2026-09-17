@@ -181,9 +181,9 @@ const UserLayout = () => {
             {/* MOBILE BOTTOM NAVBAR */}
             {/* ================================================= */}
 
-            <nav className="stat-card fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/95 shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur md:hidden">
+            <nav className="rounded-full stat-card fixed bottom-0 left-0 right-0 z-50  border-2 border-solid border-blue-600 bg-transparent shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur-sm md:hidden">
 
-                <div className="flex h-[68px] items-center justify-around px-1">
+                <div className="flex  h-[68px] items-center justify-around px-1">
 
                     {/* Dashboard */}
 

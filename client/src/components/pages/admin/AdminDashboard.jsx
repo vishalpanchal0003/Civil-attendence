@@ -12,9 +12,6 @@ const AdminDashboard = () => {
         .toISOString()
         .slice(0, 7);
 
-
-console.log("admin stats",stats)
-
     const {
         data: salaryData,
     } = useQuery({

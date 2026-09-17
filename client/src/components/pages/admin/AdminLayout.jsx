@@ -90,7 +90,7 @@ const AdminLayout = () => {
                                 to="/admin/attendance"
                                 className={({ isActive }) =>
                                     `px-4 py-2 rounded-lg ${isActive
-                                       ? "bg-indigo-600 text-white rounded-3xl"
+                                        ? "bg-indigo-600 text-white rounded-3xl"
                                         : "text-slate-600 hover:bg-blue-300 rounded-3xl "
                                     }`
                                 }
@@ -157,78 +157,78 @@ const AdminLayout = () => {
 
 
             {/* Mobile Navigation */}
-            <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-slate-200">
+            <nav className="rounded-full shadow-lg fixed bottom-0 left-0 right-0 md:hidden bg-transparent  border-2 border-solid border-blue-600 backdrop-blur-sm">
 
                 <div className="h-16 flex items-center justify-around">
 
                     <NavLink
                         to="/adminDashboard"
-                          className={({ isActive }) =>
-                                    `w-11 h-11 flex items-center justify-center rounded-full
+                        className={({ isActive }) =>
+                            `w-11 h-11 flex items-center justify-center rounded-full
     transition-all duration-300 ease-in-out
     ${isActive
-                                        ? "bg-indigo-600 text-white scale-105"
-                                        : "text-slate-600 hover:bg-slate-100"
-                                    }`
-                                }
+                                ? "bg-indigo-600 text-white scale-105"
+                                : "text-slate-600 hover:bg-slate-100"
+                            }`
+                        }
                     >
                         <LucideHome />
                     </NavLink>
 
                     <NavLink
                         to="/admin/workers"
-                     className={({ isActive }) =>
-                                    `w-11 h-11 flex items-center justify-center rounded-full
+                        className={({ isActive }) =>
+                            `w-11 h-11 flex items-center justify-center rounded-full
     transition-all duration-300 ease-in-out
     ${isActive
-                                        ? "bg-indigo-600 text-white scale-105"
-                                        : "text-slate-600 hover:bg-slate-100"
-                                    }`
-                                }
+                                ? "bg-indigo-600 text-white scale-105"
+                                : "text-slate-600 hover:bg-slate-100"
+                            }`
+                        }
                     >
                         <UserGroup />
                     </NavLink>
 
                     <NavLink
                         to="/admin/attendance"
-                          className={({ isActive }) =>
-                                    `w-11 h-11 flex items-center justify-center rounded-full
+                        className={({ isActive }) =>
+                            `w-11 h-11 flex items-center justify-center rounded-full
     transition-all duration-300 ease-in-out
     ${isActive
-                                        ? "bg-indigo-600 text-white scale-105"
-                                        : "text-slate-600 hover:bg-slate-100"
-                                    }`
-                                }
+                                ? "bg-indigo-600 text-white scale-105"
+                                : "text-slate-600 hover:bg-slate-100"
+                            }`
+                        }
                     >
                         <CalendarDays />
                     </NavLink>
 
                     <NavLink
                         to="/admin/salary"
-                         className={({ isActive }) =>
-                                    `w-11 h-11 flex items-center justify-center rounded-full
+                        className={({ isActive }) =>
+                            `w-11 h-11 flex items-center justify-center rounded-full
     transition-all duration-300 ease-in-out
     ${isActive
-                                        ? "bg-indigo-600 text-white scale-105"
-                                        : "text-slate-600 hover:bg-slate-100"
-                                    }`
-                                }
+                                ? "bg-indigo-600 text-white scale-105"
+                                : "text-slate-600 hover:bg-slate-100"
+                            }`
+                        }
                     >
                         <IndianRupeeIcon />
                     </NavLink>
 
                     <NavLink
                         to="/admin/profile"
-                         className={({ isActive }) =>
-                                    `w-11 h-11 flex items-center justify-center rounded-full
+                        className={({ isActive }) =>
+                            `w-11 h-11 flex items-center justify-center rounded-full
     transition-all duration-300 ease-in-out
     ${isActive
-                                        ? "bg-indigo-600 text-white scale-105"
-                                        : "text-slate-600 hover:bg-slate-100"
-                                    }`
-                                }
+                                ? "bg-indigo-600 text-white scale-105"
+                                : "text-slate-600 hover:bg-slate-100"
+                            }`
+                        }
                     >
-                        <User/>
+                        <User />
                     </NavLink>
 
                 </div>
