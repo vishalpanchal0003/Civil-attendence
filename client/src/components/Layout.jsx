@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
 import Loading from "./common/Loader";
@@ -27,14 +27,31 @@ const AdminProfile = lazy(() =>
     import("./pages/admin/AdminProfile")
 );
 
+const HomeRedirect = () => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+
+    const role = localStorage.getItem("userRole");
+
+    if (role === "admin") {
+        return <Navigate to="/adminDashboard" replace />;
+    }
+
+    return <Navigate to="/dashboard" replace />;
+};
 const Layout = () => {
+
     return (
         <Routes>
-
             {/* ================= AUTH ROUTES ================= */}
 
+            <Route path="/" element={<HomeRedirect />} />
+
             <Route
-                path="/"
+                path="/register"
                 element={
                     <Suspense fallback={<Loading />}>
                         <Register />

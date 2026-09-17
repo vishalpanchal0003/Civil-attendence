@@ -17,7 +17,7 @@ const Login = () => {
     const loginMutation = useMutation({
         mutationFn: (userData) => loginUser(userData),
         onSuccess: (response) => {
-            console.log("login message" ,response)
+            console.log("login message", response)
             localStorage.setItem("accessToken", response.accessToken);
 
             if (response?.user?.userRole === "admin") {
@@ -183,7 +183,7 @@ const Login = () => {
                     <p className="text-center text-sm lg:text-base text-slate-600">
                         Don't have an account?{" "}
                         <Link
-                            to="/"
+                            to="/register"
                             className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"
                         >
                             Create account
