@@ -61,13 +61,17 @@ const UserLayout = () => {
 
     // ================= MOBILE NAV =================
 
-    const mobileNavLinkClass = ({ isActive }) =>
-        `w-11 h-11 flex items-center justify-center rounded-full
-        transition-all duration-300 ease-in-out
-        ${isActive
-            ? "bg-indigo-600 text-white scale-105"
-            : "text-slate-600 hover:bg-slate-100"
-        }`;
+const mobileNavLinkClass = ({ isActive }) =>
+  `w-20 h-10 flex items-center justify-center rounded-full
+   transition-all duration-300 ease-out
+   backdrop-blur-xl
+   border
+   ${
+     isActive
+   
+       ? "bg-white/45 bg-blue-700  text-black-600 scale-110 "
+       : "bg-white/10 border-white/20 text-slate-700 hover:bg-white/30 hover:border-white/40 hover:scale-105"
+   }`;
 
     return (
         <div className="min-h-screen w-full overflow-x-hidden bg-slate-50">
@@ -156,7 +160,7 @@ const UserLayout = () => {
                             logoutMutation.mutate()
                         }
                         disabled={logoutMutation.isPending}
-                        className="rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 md:hidden"
+                        className="bg-red-500 rounded-xl px-3 py-2 text-sm font-medium text-black-600 transition hover:bg-red-900 disabled:cursor-not-allowed disabled:opacity-50 md:hidden"
                     >
                         {logoutMutation.isPending
                             ? "..."
@@ -171,19 +175,18 @@ const UserLayout = () => {
             {/* MAIN CONTENT */}
             {/* ================================================= */}
 
-        <main className="pb-20 md:pb-0">
-    <Suspense fallback={<Loading />}>
-        <Outlet />
-    </Suspense>
-</main>
+            <main className="pb-20 md:pb-0">
+                <Suspense fallback={<Loading />}>
+                    <Outlet />
+                </Suspense>
+            </main>
 
             {/* ================================================= */}
             {/* MOBILE BOTTOM NAVBAR */}
             {/* ================================================= */}
 
-            <nav className="rounded-full stat-card fixed bottom-0 left-0 right-0 z-50  border-2 border-solid border-blue-600 bg-transparent shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur-sm md:hidden">
-
-                <div className="flex  h-[68px] items-center justify-around px-1">
+            <nav className=" shadow-black/60 w-[90%] max-w-[380px] rounded-full stat-card fixed bottom-2 left-1/2 -translate-x-1/2 z-50 border-2 border-solid border-black/60 bg-transparent shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur-sm md:hidden">
+                <div className="flex   h-[55px] items-center justify-around ">
 
                     {/* Dashboard */}
 

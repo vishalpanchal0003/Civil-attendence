@@ -18,6 +18,7 @@ const AllWorkerAttendacne = () => {
         queryFn: getAllAttendance,
 
         onSuccess: (response) => {
+            console.log("update signIn")
             toast.success(response?.message || "update success");
         },
 

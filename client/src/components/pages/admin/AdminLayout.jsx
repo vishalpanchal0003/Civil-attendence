@@ -34,6 +34,19 @@ const AdminLayout = () => {
             navigate("/login", { replace: true });
         },
     });
+     const mobileNavLinkClass = ({ isActive }) =>
+  `w-16 h-10 flex items-center justify-center rounded-full
+   transition-all duration-300 ease-out
+   backdrop-blur-xl
+   border
+   shadow-black
+
+   ${
+     isActive
+   
+       ? "bg-white/45   text-black-600 scale-110 border-blue-200 shadow-black"
+       : "bg-white/10 border-white/20 text-slate-700 hover:bg-white/30 hover:border-white/40 hover:scale-105"
+   }`;
 
     return (
         <div className=" w-full min-h-screen bg-slate-50">
@@ -157,76 +170,41 @@ const AdminLayout = () => {
 
 
             {/* Mobile Navigation */}
-            <nav className="rounded-full shadow-lg fixed bottom-0 left-0 right-0 md:hidden bg-transparent  border-2 border-solid border-blue-600 backdrop-blur-sm">
+            <nav className="h-16 items-center justify-center mb-2 shadow-black/60 w-[90%] max-w-[385px] rounded-full stat-card fixed bottom-2 left-1/2 -translate-x-1/2 z-50 border-2 border-solid border-black/60 bg-transparent shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur-sm md:hidden">
 
                 <div className="h-16 flex items-center justify-around">
 
                     <NavLink
                         to="/adminDashboard"
-                        className={({ isActive }) =>
-                            `w-11 h-11 flex items-center justify-center rounded-full
-    transition-all duration-300 ease-in-out
-    ${isActive
-                                ? "bg-indigo-600 text-white scale-105"
-                                : "text-slate-600 hover:bg-slate-100"
-                            }`
-                        }
+                        className={mobileNavLinkClass}
                     >
                         <LucideHome />
                     </NavLink>
 
                     <NavLink
                         to="/admin/workers"
-                        className={({ isActive }) =>
-                            `w-11 h-11 flex items-center justify-center rounded-full
-    transition-all duration-300 ease-in-out
-    ${isActive
-                                ? "bg-indigo-600 text-white scale-105"
-                                : "text-slate-600 hover:bg-slate-100"
-                            }`
-                        }
+                         className={mobileNavLinkClass}
                     >
                         <UserGroup />
                     </NavLink>
 
                     <NavLink
                         to="/admin/attendance"
-                        className={({ isActive }) =>
-                            `w-11 h-11 flex items-center justify-center rounded-full
-    transition-all duration-300 ease-in-out
-    ${isActive
-                                ? "bg-indigo-600 text-white scale-105"
-                                : "text-slate-600 hover:bg-slate-100"
-                            }`
-                        }
+                         className={mobileNavLinkClass}
                     >
                         <CalendarDays />
                     </NavLink>
 
                     <NavLink
                         to="/admin/salary"
-                        className={({ isActive }) =>
-                            `w-11 h-11 flex items-center justify-center rounded-full
-    transition-all duration-300 ease-in-out
-    ${isActive
-                                ? "bg-indigo-600 text-white scale-105"
-                                : "text-slate-600 hover:bg-slate-100"
-                            }`
-                        }
+                        className={mobileNavLinkClass}
                     >
                         <IndianRupeeIcon />
                     </NavLink>
 
                     <NavLink
                         to="/admin/profile"
-                        className={({ isActive }) =>
-                            `w-11 h-11 flex items-center justify-center rounded-full
-    transition-all duration-300 ease-in-out
-    ${isActive
-                                ? "bg-indigo-600 text-white scale-105"
-                                : "text-slate-600 hover:bg-slate-100"
-                            }`
-                        }
+                        className={mobileNavLinkClass}
                     >
                         <User />
                     </NavLink>

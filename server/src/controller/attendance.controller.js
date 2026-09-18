@@ -26,7 +26,7 @@ const signIn = async (req, res) => {
             userId: userId,
             date: date,
             time: time,
-            status:"Present",
+            status: "Present",
             signIn: now,
         });
 
@@ -72,14 +72,17 @@ const signOut = async (req, res) => {
         }
         if (attendance)
             attendance.signOut = now;
-        attendance.workingHours = (attendance.signOut - attendance.signIn) / (1000 * 60 * 60)
+        const differenceMs = attendance.signOut - attendance.signIn;
+const totalMinutes = Math.floor(differenceMs / (1000 * 60));
+const hours = Math.floor(totalMinutes / 60);
+// const minutes = totalMinutes % 60;
+        attendance.workingHours = hours
         attendance.status =
             attendance.workingHours >= 8
                 ? "Present"
                 : attendance.workingHours > 2
                     ? "Half Day"
                     : "Absent";
-
         await attendance.save();
         return res.status(200).json({
             message: "Sign out successful",

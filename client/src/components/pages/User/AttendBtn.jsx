@@ -11,6 +11,7 @@ const AttendBtn = () => {
             toast.success(data?.message || "Sign in successful");
         },
         onError: (error) => {
+            console.log("error in attendance btn",error)
             toast.error(
                 error?.response?.data?.message || "Sign in failed"
             );

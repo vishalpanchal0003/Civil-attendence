@@ -13,7 +13,6 @@ const Attendence = () => {
     queryFn: getMyAttendance,
     queryKey: ["my-attendance"],
   });
-
   const attendanceRecords = data?.attendance || [];
   if (isLoading) {
     return (
@@ -233,6 +232,7 @@ const Attendence = () => {
                           ).toLocaleTimeString([], {
                             hour: "2-digit",
                             minute: "2-digit",
+                            hour12:true
                           })
                           : "--"}
                       </p>
@@ -250,6 +250,7 @@ const Attendence = () => {
                           ).toLocaleTimeString([], {
                             hour: "2-digit",
                             minute: "2-digit",
+                            hour12:true
                           })
                           : "--"}
                       </p>

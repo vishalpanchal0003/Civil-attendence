@@ -27,7 +27,6 @@ const ProtectedRoute = () => {
       }
 
       const expiryTime = decodedToken.exp * 1000;
-      console.log("it cheak what exactly time is reaming ",expiryTime)
       const remainingTime = expiryTime - Date.now();
 
       if (remainingTime <= 0) {
