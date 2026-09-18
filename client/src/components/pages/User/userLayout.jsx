@@ -61,17 +61,16 @@ const UserLayout = () => {
 
     // ================= MOBILE NAV =================
 
-const mobileNavLinkClass = ({ isActive }) =>
-  `w-20 h-10 flex items-center justify-center rounded-full
+    const mobileNavLinkClass = ({ isActive }) =>
+        `w-16 h-10 flex items-center justify-center rounded-full
    transition-all duration-300 ease-out
    backdrop-blur-xl
    border
-   ${
-     isActive
-   
-       ? "bg-white/45 bg-blue-700  text-black-600 scale-110 "
-       : "bg-white/10 border-white/20 text-slate-700 hover:bg-white/30 hover:border-white/40 hover:scale-105"
-   }`;
+   ${isActive
+
+            ? "bg-white/45 bg-blue-700  text-black-600 scale-110 "
+            : "bg-white/10 border-white/20 text-slate-700 hover:bg-white/30 hover:border-white/40 hover:scale-105"
+        }`;
 
     return (
         <div className="min-h-screen w-full overflow-x-hidden bg-slate-50">
@@ -185,7 +184,7 @@ const mobileNavLinkClass = ({ isActive }) =>
             {/* MOBILE BOTTOM NAVBAR */}
             {/* ================================================= */}
 
-            <nav className=" shadow-black/60 w-[90%] max-w-[380px] rounded-full stat-card fixed bottom-2 left-1/2 -translate-x-1/2 z-50 border-2 border-solid border-black/60 bg-transparent shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur-sm md:hidden">
+            <nav className="bg-black/20 shadow-black/60 w-[90%] max-w-[380px] rounded-full stat-card fixed bottom-2 left-1/2 -translate-x-1/2 z-50 border-2 border-solid border-black/60  shadow-[0_-4px_15px_rgba(0,0,0,0.08)] backdrop-blur-sm md:hidden">
                 <div className="flex   h-[55px] items-center justify-around ">
 
                     {/* Dashboard */}
